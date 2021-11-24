@@ -6,7 +6,7 @@
             <div>
                 <h1>Database of <span class="text-warning">Irish Phrases</span></h1>
                 <p class="lead my-4">This website provides a searchable database of over xxxx phrases, searchable in Irish and English.</p>
-                <a href="/#random" class="btn btn-primary btn-lg">Show me some examples</a>
+                <a href="/#random" class="btn btn-primary btn-lg">Discover Phrases</a>
             </div>
             <img class="img-fluid w-25 d-none d-sm-block" src="/images/header_image.png" alt="">
         </div>
@@ -35,8 +35,8 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col text-center">
-                <h2 class="d-inline-block">Sample Phrases</h2> 
-                {{-- <a class="btn btn-primary d-block w-25" href="/#random">More</a> --}}
+                <h2 class="d-inline-block">Discover Phrases (refresh page for more)</h2> 
+                {{-- <a class="btn btn-primary d-block w-25" href="{{route('more_random')}}">More</a> --}}
             </div>
             
         </div>

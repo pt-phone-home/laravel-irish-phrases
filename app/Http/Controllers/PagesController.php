@@ -14,7 +14,7 @@ class PagesController extends Controller
         return view('home')->with(['phrases' => $phrases, 'phrasesInEnglish' => $phrasesInEnglish]);
     }
 
-    public function data_dump() {
+       public function data_dump() {
         $phrases = Phrase::all();
         return view('data_dump')->with(['phrases' => $phrases]);
     }

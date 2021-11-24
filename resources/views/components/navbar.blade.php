@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a href="/#random" class="nav-link">Sample Phrases</a>
+          <a href="/#random" class="nav-link">Discover Phrases</a>
         </li>
         {{-- <li class="nav-item">
           <a href="{{route('random')}}" class="nav-link">Random Phrases</a>

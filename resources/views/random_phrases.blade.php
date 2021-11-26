@@ -22,7 +22,7 @@
            <div class="col col-md-3">
                <div class="card d-flex flex-wrap justify">
                    @foreach ($phrasesInIrish as $phrase )
-                   <a href="{{route('randomById', $phrase)}}" class="link">{{$phrase->irish}}</a>
+                   <a href="{{route('randomById', $phrase)}}" class="link">{{trim($phrase->irish)}}</a>
                    @endforeach
                </div>
            </div>
@@ -33,7 +33,7 @@
             <div class="col col-md-3">
                 <div class="card d-flex flex-wrap justify">
                     @foreach ($phrasesInEnglish as $phrase )
-                    <p>{{$phrase->english}}</p>
+                    <p>{{trim($phrase->english)}}</p>
                     @endforeach
                 </div>
             </div>

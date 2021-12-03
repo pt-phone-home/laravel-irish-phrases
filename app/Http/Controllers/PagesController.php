@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Phrase;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class PagesController extends Controller
 {
@@ -24,18 +26,45 @@ class PagesController extends Controller
         // dd($totalPhrases);
         
         $searchTerm = trim($request['searchTerm']);
+        $query = trim($request['searchTerm']);
 
-        $phrases = Phrase::where('english','like', $searchTerm .' %')
-                    ->orWhere('english', 'like', '% ' . $searchTerm)
-                    ->orWhere('english', 'like', '% ' . $searchTerm . ' %')
-                    ->orWhere('english', 'like', $searchTerm)
-                    ->orWhere('irish','like', $searchTerm .' %')
-                    ->orWhere('irish', 'like', '% ' . $searchTerm)
-                    ->orWhere('irish', 'like', '% ' . $searchTerm . ' %')
-                    ->orWhere('irish', 'like', $searchTerm)
-                    ->take(20)
-                    ->get();
-        return view('results_page')->with(['phrases' => $phrases]);
+        $query_split = explode(' ', $query);
+
+        $located_results = collect([]);
+
+        function phrase_query($query_split) {
+            $test_results = [];
+            foreach ($query_split as $query_term) {
+                print($query_term);
+                $found = Phrase::where('english', 'like', '% ' . $query_term . ' %')
+                        ->orWhere('irish', 'like', '% ' . $query_term . ' %')
+                        ->get();
+           
+                array_push($test_results, $found);
+            }
+         
+            $results_final = collect($test_results)->flatten()->groupBy('id')->sortByDesc(function ($phrase) {
+                return $phrase->count();
+            })->flatten()->unique();
+            return $results_final;
+        }
+       
+            $final_results = phrase_query($query_split)->take(20);
+        return view('results_page')->with(['phrases' => $final_results]);
+
+        // $phrases = Phrase::where('english','like', $searchTerm .' %')
+        //                 ->orWhere('english', 'like', '% ' . $searchTerm)
+        //                 ->orWhere('english', 'like', '% ' . $searchTerm . ' %')
+        //                 ->orWhere('english', 'like', $searchTerm)
+        //                 ->orWhere('irish','like', $searchTerm .' %')
+        //                 ->orWhere('irish', 'like', '% ' . $searchTerm)
+        //                 ->orWhere('irish', 'like', '% ' . $searchTerm . ' %')
+        //                 ->orWhere('irish', 'like', $searchTerm)
+        //                 ->take(20)
+        //                 ->get();
+        //     return view('results_page')->with(['phrases' => $phrases]);
+
+
     }
 
     public function random() {
